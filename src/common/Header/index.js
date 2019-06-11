@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 import {
   getSearchInputFocusAction,
   getSearchInputBlurAction
-} from "../../store/actionCreators";
+} from "./store/actionCreators";
 
 const Header = props => (
   <div>
@@ -61,7 +61,7 @@ const Header = props => (
 
 const manStateToProps = state => {
   return {
-    focused: state.focused
+    focused: state.header.focused
   }
 };
 

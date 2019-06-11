@@ -1,24 +1,9 @@
-import {
-  SEARCH_INPUT_FOCUS,
-  SEARCH_INPUT_BLUR
-} from './actionTypes';
+import { combineReducers } from 'redux';
+import headerReducer from '../common/Header/store/reducer';
 
-const defaultState = {
-  focused: false
-}
+// 将每个组件的reducer连接起来
+const reducer =  combineReducers({
+  header: headerReducer
+})
 
-export default (state = defaultState, action) => {
-  const newState = JSON.parse(JSON.stringify(state));
-  
-  switch (action.type) {
-    case SEARCH_INPUT_FOCUS:
-      newState.focused = true;
-      break;
-    case SEARCH_INPUT_BLUR:
-      newState.focused = false;
-      break;
-    default: 
-      console.log(action.type);
-  }
-  return newState;
-}
+export default reducer;
