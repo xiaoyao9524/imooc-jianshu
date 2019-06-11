@@ -16,9 +16,13 @@ import GlobalIcon from '../../static/iconfont/iconfont';
 import { connect } from 'react-redux';
 
 import {
+  actionCreators
+} from "./store";
+
+const {
   getSearchInputFocusAction,
   getSearchInputBlurAction
-} from "./store/actionCreators";
+} = actionCreators;
 
 const Header = props => (
   <div>
@@ -68,12 +72,10 @@ const manStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     handleInputFocus() {
-      const action = getSearchInputFocusAction();
-      dispatch(action);
+      dispatch(getSearchInputFocusAction());
     },
     handleInputBlur() {
-      const action = getSearchInputBlurAction();
-      dispatch(action);
+      dispatch(getSearchInputBlurAction());
     }
   }
 };
