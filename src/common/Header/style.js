@@ -88,6 +88,80 @@ export const NavSearch = styled.input.attrs({
   }
 `;
 
+export const HotSearchInfo = styled.div`
+  position: absolute;
+  left: 20px;
+  top: 100%;
+  box-sizing: border-box;
+  width: 250px;
+  height: 157px;
+  margin-top: 12px;
+  padding: 20px 20px 10px;
+  border-radius: 4px;
+  border-bottom: 1px solid #f0f0f0;
+  box-shadow:  0 0 8px rgba(0,0,0,.2);
+  background: #fff;
+  &:before {
+    content: "";
+    position: absolute;
+    left: 27px;
+    top: -5px;
+    z-index: -1;
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px rgba(0,0,0,.2);
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    bottom: 99%;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    border-bottom-color: #fff;
+  }
+`;
+
+export const SearchInfoTitle = styled.div`
+  margin-bottom: 10px;
+  .title {
+    font-size: 14px;
+    color: #969696;
+  }
+  .replace {
+    font-size: 13px;
+    color: #969696;
+    background-color: transparent;
+    border-width: 0;
+    padding: 0;
+    text-decoration: none;
+    &:hover {
+      color: #2f2f2f;
+    }
+  }
+`;
+
+export const SearchItem = styled.li`
+  margin-right: 10px;
+  display: inline-block;
+  line-height: 28px;
+  height: 32px;
+  a {
+    padding: 2px 6px;
+    font-size: 12px;
+    color: #787878;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    line-height: 28px;
+    &:hover {
+      color: #333;
+      border-color: #b4b4b4;
+    }
+  }
+`;
+
 export const Addition = styled.div`
   position: absolute;
   top: 0;

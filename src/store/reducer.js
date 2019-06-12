@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux-immutable';
 import { reducer as headerReducer } from '../common/Header/store';
 
 // 将每个组件的reducer连接起来

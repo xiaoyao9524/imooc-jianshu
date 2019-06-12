@@ -44,6 +44,10 @@ const globalStyle = createGlobalStyle`
     border-spacing: 0;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   .fl {
     float: left;
   }

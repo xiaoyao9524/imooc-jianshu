@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import {
   HeaderWrapper,
@@ -7,6 +7,9 @@ import {
   NavItem,
   SearchWrapper,
   NavSearch,
+  HotSearchInfo,
+  SearchInfoTitle,
+  SearchItem,
   Addition,
   Button
 } from './style';
@@ -19,59 +22,122 @@ import {
   actionCreators
 } from "./store";
 
+import axios from 'axios';
+
 const {
+  getList,
   getSearchInputFocusAction,
   getSearchInputBlurAction
 } = actionCreators;
 
-const Header = props => (
-  <div>
-    <GlobalIcon />
-    <HeaderWrapper>
-      <Logo href='/' />
-      <Nav>
-        <NavItem className="fl active">
-          <span className="iconfont home-icon">&#xe51c;</span>
-          首页
+
+
+class Header extends Component {
+  render() {
+    return (
+      <div>
+        <GlobalIcon />
+        <HeaderWrapper>
+          <Logo href='/' />
+          <Nav>
+            <NavItem className="fl active">
+              <span className="iconfont home-icon">&#xe51c;</span>
+              首页
             </NavItem>
-        <NavItem className="fl">
-          <span className="iconfont download-icon">&#xeb7d;</span>
-          下载APP
+            <NavItem className="fl">
+              <span className="iconfont download-icon">&#xeb7d;</span>
+              下载APP
             </NavItem>
-        <NavItem className="fr">登陆</NavItem>
-        <NavItem className="fr">
-          <span className="iconfont Aa">&#xe659;</span>
-        </NavItem>
-        <SearchWrapper className='search-wrapper fl'>
-          <NavSearch
-            className='nav-search'
-            onFocus={props.handleInputFocus}
-            onBlur={props.handleInputBlur}
-          />
-          <span className="iconfont">&#xe653;</span>
-        </SearchWrapper>
-        focus: {props.focused ? 'y' : 'n'}
-        <Addition>
-          <Button className='writing'>
-            <span className="iconfont writing-icon">&#xe628;</span>
-            写文章
+            <NavItem className="fr">登陆</NavItem>
+            <NavItem className="fr">
+              <span className="iconfont Aa">&#xe659;</span>
+            </NavItem>
+            <SearchWrapper className='search-wrapper fl'>
+              <NavSearch
+                className='nav-search'
+                onFocus={this.props.handleInputFocus}
+                onBlur={this.props.handleInputBlur}
+              />
+              <span className="iconfont">&#xe653;</span>
+              {/* 热门搜索 */}
+              {this.getListArea(this.props.focused)}
+            </SearchWrapper>
+            focus: {this.props.focused ? 'y' : 'n'}
+            <Addition>
+              <Button className='writing'>
+                <span className="iconfont writing-icon">&#xe628;</span>
+                写文章
               </Button>
-          <Button className="reg">注册</Button>
-        </Addition>
-      </Nav>
-    </HeaderWrapper>
-  </div>
-);
+              <Button className="reg">注册</Button>
+            </Addition>
+          </Nav>
+        </HeaderWrapper>
+      </div>
+    )
+  }
+
+  getListArea = show => {
+    if (show) {
+      return (
+        <HotSearchInfo>
+          <SearchInfoTitle className='clearfix'>
+            <span className='title fl'>热门搜索</span>
+            <a
+              className='fr replace'
+              href="/"
+            >
+              换一批
+                </a>
+          </SearchInfoTitle>
+          <ul>
+            <SearchItem>
+              <a href="/">考研</a>
+            </SearchItem>
+            <SearchItem>
+              <a href="/">考研研</a>
+            </SearchItem>
+            <SearchItem>
+              <a href="/">考研</a>
+            </SearchItem>
+            <SearchItem>
+              <a href="/">一纸vr</a>
+            </SearchItem>
+            <SearchItem>
+              <a href="/">考研</a>
+            </SearchItem>
+            <SearchItem>
+              <a href="/">考研</a>
+            </SearchItem>
+            <SearchItem>
+              <a href="/">考研</a>
+            </SearchItem>
+            <SearchItem>
+              <a href="/">考研</a>
+            </SearchItem>
+            <SearchItem>
+              <a href="/">考研</a>
+            </SearchItem>
+            <SearchItem>
+              <a href="/">考研</a>
+            </SearchItem>
+          </ul>
+        </HotSearchInfo>
+      )
+    }
+    return null;
+  }
+}
 
 const manStateToProps = state => {
   return {
-    focused: state.header.focused
+    focused: state.getIn(['header', 'focused'])
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     handleInputFocus() {
+      dispatch(getList())
       dispatch(getSearchInputFocusAction());
     },
     handleInputBlur() {
