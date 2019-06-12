@@ -94,7 +94,7 @@ export const HotSearchInfo = styled.div`
   top: 100%;
   box-sizing: border-box;
   width: 250px;
-  height: 157px;
+  // height: 157px;
   margin-top: 12px;
   padding: 20px 20px 10px;
   border-radius: 4px;

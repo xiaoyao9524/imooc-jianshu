@@ -1,13 +1,14 @@
 import {
   SEARCH_INPUT_FOCUS,
-  SEARCH_INPUT_BLUR
+  SEARCH_INPUT_BLUR,
+  INIT_HOT_LIST
 } from './actionTypes';
 
 import { fromJS } from 'immutable';
 
 const defaultState = fromJS({
   focused: false,
-  lsit: []
+  list: []
 });
 
 export default (state = defaultState, action) => {
@@ -16,6 +17,8 @@ export default (state = defaultState, action) => {
       return state.set('focused', true);
     case SEARCH_INPUT_BLUR:
       return state.set('focused', false);
+    case INIT_HOT_LIST:
+      return state.set('list', action.list);
     default: 
       console.log(action.type);
   }

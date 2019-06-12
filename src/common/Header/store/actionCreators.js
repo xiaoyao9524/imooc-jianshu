@@ -1,15 +1,21 @@
 import {
   SEARCH_INPUT_FOCUS,
-  SEARCH_INPUT_BLUR
+  SEARCH_INPUT_BLUR,
+  INIT_HOT_LIST
 } from './actionTypes';
 import axios from 'axios';
+import { fromJS } from 'immutable';
+
+export const getInitHotListAction = list => ({
+  type: INIT_HOT_LIST,
+  list: fromJS(list)
+})
 
 export const getList = () => {
   return dispatch => {
-    console.log('123')
     axios.get('/api/headerList.json')
       .then(res => {
-        console.log(res.data);  
+        dispatch(getInitHotListAction(res.data));
       })
       .catch (err => {
         console.log(err);

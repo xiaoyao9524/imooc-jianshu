@@ -22,8 +22,6 @@ import {
   actionCreators
 } from "./store";
 
-import axios from 'axios';
-
 const {
   getList,
   getSearchInputFocusAction,
@@ -60,7 +58,7 @@ class Header extends Component {
               />
               <span className="iconfont">&#xe653;</span>
               {/* 热门搜索 */}
-              {this.getListArea(this.props.focused)}
+              {this.getListArea()}
             </SearchWrapper>
             focus: {this.props.focused ? 'y' : 'n'}
             <Addition>
@@ -76,8 +74,8 @@ class Header extends Component {
     )
   }
 
-  getListArea = show => {
-    if (show) {
+  getListArea = () => {
+    if (this.props.focused) {
       return (
         <HotSearchInfo>
           <SearchInfoTitle className='clearfix'>
@@ -90,36 +88,13 @@ class Header extends Component {
                 </a>
           </SearchInfoTitle>
           <ul>
-            <SearchItem>
-              <a href="/">考研</a>
-            </SearchItem>
-            <SearchItem>
-              <a href="/">考研研</a>
-            </SearchItem>
-            <SearchItem>
-              <a href="/">考研</a>
-            </SearchItem>
-            <SearchItem>
-              <a href="/">一纸vr</a>
-            </SearchItem>
-            <SearchItem>
-              <a href="/">考研</a>
-            </SearchItem>
-            <SearchItem>
-              <a href="/">考研</a>
-            </SearchItem>
-            <SearchItem>
-              <a href="/">考研</a>
-            </SearchItem>
-            <SearchItem>
-              <a href="/">考研</a>
-            </SearchItem>
-            <SearchItem>
-              <a href="/">考研</a>
-            </SearchItem>
-            <SearchItem>
-              <a href="/">考研</a>
-            </SearchItem>
+            {
+              this.props.list.map(item => (
+                <SearchItem key={item}>
+                  <a href={`/${item}`}>{item}</a>
+                </SearchItem>
+              ))
+            }
           </ul>
         </HotSearchInfo>
       )
@@ -130,7 +105,8 @@ class Header extends Component {
 
 const manStateToProps = state => {
   return {
-    focused: state.getIn(['header', 'focused'])
+    focused: state.getIn(['header', 'focused']),
+    list: state.getIn(['header', 'list'])
   }
 };
 
