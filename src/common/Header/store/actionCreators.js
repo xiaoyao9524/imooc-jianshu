@@ -6,10 +6,13 @@ import {
 import axios from 'axios';
 import { fromJS } from 'immutable';
 
-export const getInitHotListAction = list => ({
+// 无需导出的
+const getInitHotListAction = list => ({
   type: INIT_HOT_LIST,
   list: fromJS(list)
 })
+
+// 需要导出的
 
 export const getList = () => {
   return dispatch => {

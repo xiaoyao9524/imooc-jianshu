@@ -28,10 +28,14 @@ const {
   getSearchInputBlurAction
 } = actionCreators;
 
-
-
 class Header extends Component {
   render() {
+    const { 
+      focused,
+      handleInputFocus,
+      handleInputBlur
+    } = this.props;
+
     return (
       <div>
         <GlobalIcon />
@@ -53,14 +57,14 @@ class Header extends Component {
             <SearchWrapper className='search-wrapper fl'>
               <NavSearch
                 className='nav-search'
-                onFocus={this.props.handleInputFocus}
-                onBlur={this.props.handleInputBlur}
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}
               />
               <span className="iconfont">&#xe653;</span>
               {/* 热门搜索 */}
               {this.getListArea()}
             </SearchWrapper>
-            focus: {this.props.focused ? 'y' : 'n'}
+            focus: {focused ? 'y' : 'n'}
             <Addition>
               <Button className='writing'>
                 <span className="iconfont writing-icon">&#xe628;</span>
@@ -75,7 +79,8 @@ class Header extends Component {
   }
 
   getListArea = () => {
-    if (this.props.focused) {
+    const {focused, list} = this.props;
+    if (focused) {
       return (
         <HotSearchInfo>
           <SearchInfoTitle className='clearfix'>
@@ -89,7 +94,7 @@ class Header extends Component {
           </SearchInfoTitle>
           <ul>
             {
-              this.props.list.map(item => (
+              list.map(item => (
                 <SearchItem key={item}>
                   <a href={`/${item}`}>{item}</a>
                 </SearchItem>
