@@ -47,7 +47,7 @@ export const NavItem = styled.div`
 
 export const SearchWrapper = styled.div`
   position: relative;
-  .iconfont {
+  .zoom {
     position: absolute;
     right: 5px;
     bottom: 5px;
@@ -94,7 +94,6 @@ export const HotSearchInfo = styled.div`
   top: 100%;
   box-sizing: border-box;
   width: 250px;
-  // height: 157px;
   margin-top: 12px;
   padding: 20px 20px 10px;
   border-radius: 4px;
@@ -125,7 +124,6 @@ export const HotSearchInfo = styled.div`
 `;
 
 export const SearchInfoTitle = styled.div`
-  margin-bottom: 10px;
   .title {
     font-size: 14px;
     color: #969696;
@@ -137,6 +135,17 @@ export const SearchInfoTitle = styled.div`
     border-width: 0;
     padding: 0;
     text-decoration: none;
+    .spin {
+      display: block;
+      float: left;
+      width: auto;
+      height: auto;
+      font-size: 12px;
+      margin-right: 2px;
+      transition: transform .2s;
+      transform: rotate(0deg);
+      transform-origin: center center;
+    }
     &:hover {
       color: #2f2f2f;
     }

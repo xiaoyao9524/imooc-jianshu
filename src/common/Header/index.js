@@ -25,7 +25,10 @@ import {
 const {
   getList,
   getSearchInputFocusAction,
-  getSearchInputBlurAction
+  getSearchInputBlurAction,
+  getPageChangeAction,
+  getHotListOverAction,
+  getHotListOutAction
 } = actionCreators;
 
 class Header extends Component {
@@ -43,7 +46,7 @@ class Header extends Component {
           <Logo href='/' />
           <Nav>
             <NavItem className="fl active">
-              <span className="iconfont home-icon">&#xe51c;</span>
+              <span className="iconfont home-icon">&#xe600;</span>
               首页
             </NavItem>
             <NavItem className="fl">
@@ -60,7 +63,7 @@ class Header extends Component {
                 onFocus={handleInputFocus}
                 onBlur={handleInputBlur}
               />
-              <span className="iconfont">&#xe653;</span>
+              <span className="iconfont zoom">&#xe653;</span>
               {/* 热门搜索 */}
               {this.getListArea()}
             </SearchWrapper>
@@ -78,23 +81,67 @@ class Header extends Component {
     )
   }
 
+  replaceList = () => {
+    const {totalPage} = this.props;
+
+    let { page } = this.props;
+
+    if (page === totalPage) {
+      page = 1;
+    } else {
+      page++;
+    }
+    this.props.handlePageChange(page, this.spinIcon)
+  }
+
   getListArea = () => {
-    const {focused, list} = this.props;
-    if (focused) {
+    const {focused, list, page, totalPage, hovered} = this.props;
+    
+    const jsList = list.toJS();
+
+    let start = (page - 1) * 10;
+
+    let end = page === totalPage ? 
+      jsList.length :
+      (page - 1) * 10 + 10
+
+    let renderList = jsList.slice(start, end);
+      
       return (
-        <HotSearchInfo>
+        <HotSearchInfo
+          className='hot-search-info'
+          style={{visibility: (focused || hovered) ? 'visible' : 'hidden'}}
+          onMouseEnter={
+            this.props.handleOver
+          }
+          onMouseLeave={
+            this.props.handleOut
+          }
+        >
           <SearchInfoTitle className='clearfix'>
             <span className='title fl'>热门搜索</span>
             <a
               className='fr replace'
-              href="/"
+              href='void: 0;'
+              onClick={() => {
+                this.replaceList();
+              }}
             >
-              换一批
-                </a>
+              <span 
+                ref={icon => {this.spinIcon = icon}}
+                className='iconfont spin'
+                // style={{
+                //   transform: `rotate(${page * 360}deg)`
+                // }}
+              >&#xe851;</span>
+              <span>换一批</span>
+            </a>
           </SearchInfoTitle>
-          <ul>
+          <ul
+            style={{paddingTop: 10}}
+          >
             {
-              list.map(item => (
+              renderList.map(item => (
                 <SearchItem key={item}>
                   <a href={`/${item}`}>{item}</a>
                 </SearchItem>
@@ -103,15 +150,16 @@ class Header extends Component {
           </ul>
         </HotSearchInfo>
       )
-    }
-    return null;
   }
 }
 
 const manStateToProps = state => {
   return {
     focused: state.getIn(['header', 'focused']),
-    list: state.getIn(['header', 'list'])
+    list: state.getIn(['header', 'list']),
+    page: state.getIn(['header', 'page']),
+    totalPage: state.getIn(['header', 'totalPage']),
+    hovered: state.getIn(['header', 'hovered'])
   }
 };
 
@@ -123,6 +171,16 @@ const mapDispatchToProps = dispatch => {
     },
     handleInputBlur() {
       dispatch(getSearchInputBlurAction());
+    },
+    handlePageChange (page, spin) {
+      spin.style.transform = `rotate(${page * 360}deg)`;
+      dispatch(getPageChangeAction(page))
+    },
+    handleOver () {
+      dispatch(getHotListOverAction());
+    },
+    handleOut () {
+      dispatch(getHotListOutAction());
     }
   }
 };
