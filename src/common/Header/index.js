@@ -36,7 +36,8 @@ class Header extends Component {
     const { 
       focused,
       handleInputFocus,
-      handleInputBlur
+      handleInputBlur,
+      list
     } = this.props;
 
     return (
@@ -60,7 +61,7 @@ class Header extends Component {
             <SearchWrapper className='search-wrapper fl'>
               <NavSearch
                 className='nav-search'
-                onFocus={handleInputFocus}
+                onFocus={() => handleInputFocus(list)}
                 onBlur={handleInputBlur}
               />
               <span className="iconfont zoom">&#xe653;</span>
@@ -165,8 +166,8 @@ const manStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleInputFocus() {
-      dispatch(getList())
+    handleInputFocus(list) {
+      (!list.size) && dispatch(getList());
       dispatch(getSearchInputFocusAction());
     },
     handleInputBlur() {
