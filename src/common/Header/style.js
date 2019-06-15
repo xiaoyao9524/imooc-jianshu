@@ -3,6 +3,8 @@ import logoPic from '../../static/logo.png';
 
 export const HeaderWrapper = styled.div`
   position: relative;
+  margin: 0 auto;
+  width: 1440px;
   height: 58px;
   border-bottom: 1px solid #f0f0f0;
 `;
@@ -47,7 +49,7 @@ export const NavItem = styled.div`
 
 export const SearchWrapper = styled.div`
   position: relative;
-  .zoom {
+  .iconsearch {
     position: absolute;
     right: 5px;
     bottom: 5px;
@@ -194,7 +196,7 @@ export const Button = styled.div`
     color: #fff;
     background: #ec6149;
   }
-  .writing-icon {
+  .iconnav-writing {
     font-size: 20px;
   }
 `;

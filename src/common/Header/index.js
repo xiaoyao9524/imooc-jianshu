@@ -14,8 +14,6 @@ import {
   Button,
 } from './style';
 
-import GlobalIcon from '../../static/iconfont/iconfont';
-
 import {connect} from 'react-redux';
 
 import {actionCreators} from './store';
@@ -35,21 +33,20 @@ class Header extends Component {
 
     return (
       <div>
-        <GlobalIcon />
         <HeaderWrapper>
           <Logo href="/" />
           <Nav>
             <NavItem className="fl active">
-              <span className="iconfont home-icon">&#xe600;</span>
+              <span className="iconfont iconcompass_0"></span>
               首页
             </NavItem>
             <NavItem className="fl">
-              <span className="iconfont download-icon">&#xeb7d;</span>
+              <span className="iconfont iconphonedownload"></span>
               下载APP
             </NavItem>
             <NavItem className="fr">登陆</NavItem>
             <NavItem className="fr">
-              <span className="iconfont Aa">&#xe659;</span>
+              <span className="iconfont iconspin"></span>
             </NavItem>
             <SearchWrapper className="search-wrapper fl">
               <NavSearch
@@ -57,14 +54,14 @@ class Header extends Component {
                 onFocus={() => handleInputFocus(list)}
                 onBlur={handleInputBlur}
               />
-              <span className="iconfont zoom">&#xe653;</span>
+              <span className="iconfont iconsearch"></span>
               {/* 热门搜索 */}
               {this.getListArea()}
             </SearchWrapper>
             focus: {focused ? 'y' : 'n'}
             <Addition>
               <Button className="writing">
-                <span className="iconfont writing-icon">&#xe628;</span>
+                <span className="iconfont iconnav-writing"></span>
                 写文章
               </Button>
               <Button className="reg">注册</Button>
