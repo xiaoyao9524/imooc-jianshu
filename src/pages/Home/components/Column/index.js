@@ -5,14 +5,13 @@ import { ColumnItem } from './style';
 class Column extends Component {
   render() {
     const { list } = this.props;
-    console.log(list);
 
     return (
       <ul>
         {
           list.map(item => (
             <ColumnItem key={item.id}>
-              <a href={item.href} alt='Banner' target='_black'>
+              <a href={item.href} alt='Banner' target='_black192'>
                 <img src={item.imgUrl} alt="Banner"/>
               </a>
             </ColumnItem>

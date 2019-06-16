@@ -2,16 +2,54 @@ import React, { Component } from 'react'
 import {
   HomeWrapper,
   HomeLeft,
-  HomeRight
+  HomeRight,
+  BackTop
 } from './style';
+import { connect } from 'react-redux';
 
 import List from './components/List';
 import Column from './components/Column';
 import Recommend from './components/Recommend';
 import Writer from './components/Writerr';
 
+import {
+  getChangeShowScrollAction
+} from './store/actionCreators';
+
 class Home extends Component {
+
+  componentDidMount = () => {
+    this.bindEvent();
+  }
+
+  componentWillUnmount = () => {
+    console.log('unMount')
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  bindEvent = () => {
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  handleScroll = e => {
+    const { showScroll, changeShowScroll } = this.props;
+    const { scrollY } = window;
+
+    if (scrollY >= 60 && !showScroll) {
+      return changeShowScroll(true);
+    }
+    if (scrollY < 60 && showScroll) {
+      return changeShowScroll(false);
+    }
+  }
+
+  handleScollTop () {
+    window.scrollTo(0, 0);
+  }
+
   render() {
+    const { showScroll } = this.props;
+
     return (
       <HomeWrapper>
         {/* 左侧内容 */}
@@ -25,9 +63,26 @@ class Home extends Component {
           <Recommend/>
           <Writer/>
         </HomeRight>
+        {
+          showScroll ?
+            (<BackTop onClick={this.handleScollTop}>
+              回到顶部
+            </BackTop>) :
+            ''
+        }
       </HomeWrapper>
     )
   }
 }
 
-export default Home;
+const mapState = state => ({
+  showScroll: state.getIn(['home', 'showScroll'])
+});
+
+const mapDispatch = dispatch => ({
+  changeShowScroll (flag) {
+    dispatch(getChangeShowScrollAction(flag));
+  }
+})
+
+export default connect(mapState, mapDispatch)(Home);

@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import {
   ListItem,
-  ListInfo
+  ListInfo,
+  LoadMore
 } from './style';
 import { connect } from 'react-redux';
+import {
+  getLoadMoreListAction
+} from '../../store/actionCreators';
 
 class List extends Component {
   render() {
-    const { articleList } = this.props;
+    const { articleList, getMoreList } = this.props;
 
     return (
       <ul>
@@ -51,6 +55,9 @@ class List extends Component {
             </ListItem>
           ))
         }
+        <LoadMore className="load-more">
+          <a href='void: 0;' onClick={getMoreList}>加载更多</a>
+        </LoadMore>
       </ul>
     )
   }
@@ -60,4 +67,10 @@ const mapState = state => ({
   articleList: state.getIn(['home', 'articleList']).toJS()
 })
 
-export default connect(mapState, null)(List);
+const mapDispatch = dispatch => ({
+  getMoreList () {
+    dispatch(getLoadMoreListAction());
+  }
+})
+
+export default connect(mapState, mapDispatch)(List);

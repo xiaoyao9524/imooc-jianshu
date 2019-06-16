@@ -66,3 +66,23 @@ export const ListInfo = styled.div`
     }
   }
 `;
+
+export const LoadMore = styled.li`
+  a {
+    display: block;
+    box-sizing: border-box;
+    margin: 30px auto 60px;
+    padding: 10px 15px;
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 20px;
+    color: #fff;
+    background-color: #a5a5a5;
+    &:hover {
+      background-color: #9b9b9b;
+    }
+  }
+`;

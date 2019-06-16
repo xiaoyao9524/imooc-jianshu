@@ -20,3 +20,15 @@ export const HomeRight = styled.div`
   padding-top: 30px;
   width: 280px;
 `;
+
+export const BackTop = styled.div`
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  border: 1px solid #dcdcdc;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 14px;
+  text-align: center;
+`;

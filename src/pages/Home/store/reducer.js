@@ -1,4 +1,8 @@
 import { fromJS } from 'immutable';
+import {
+  LOAD_MORE_LIST,
+  CHANGE_SHOW_SCROLL
+} from './actionTypes';
 
 const defaultState = fromJS({
   topicList: [
@@ -66,12 +70,21 @@ const defaultState = fromJS({
       imgUrl: 'https://cdn2.jianshu.io/assets/web/banner-s-6-c4d6335bfd688f2ca1115b42b04c28a7.png',
       href: 'https://www.jianshu.com/mobile/club',
     }
-  ]
+  ],
+  showScroll: false
 });
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    
+    case LOAD_MORE_LIST:
+      let moreData = state.get('articleList').toJS();
+      for (let i = 0; i < moreData.length; i++) {
+        moreData[i].id = moreData.length + i + 1;
+      }
+      let newList = [...state.get('articleList').toJS(), ...moreData];
+      return state.set('articleList', fromJS(newList));
+    case CHANGE_SHOW_SCROLL:
+      return state.set('showScroll', action.flag);
     default: 
       return state;
   }
