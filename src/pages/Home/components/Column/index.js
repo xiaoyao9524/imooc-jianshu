@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux';
 import { ColumnItem } from './style';
 
-class Column extends Component {
+class Column extends PureComponent {
   render() {
     const { list } = this.props;
 

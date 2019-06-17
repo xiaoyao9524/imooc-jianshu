@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import {
   ListItem,
   ListInfo,
@@ -8,9 +8,11 @@ import { connect } from 'react-redux';
 import {
   getLoadMoreListAction
 } from '../../store/actionCreators';
+import { Link } from 'react-router-dom';
 
-class List extends Component {
+class List extends PureComponent {
   render() {
+    console.log(this.props);
     const { articleList, getMoreList } = this.props;
 
     return (
@@ -25,7 +27,7 @@ class List extends Component {
               }
               <ListInfo className={`${item.imgUrl ? '' : 'w100'}`}>
                 <h3 className='title'>
-                  <a href='void: 0;'>{item.title}</a>
+                  <Link to='/detail'>{item.title}</Link>
                 </h3>
                 <p className='desc'>{item.content}</p>
                 <div className='other'>

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   HeaderWrapper,
@@ -14,9 +14,11 @@ import {
   Button,
 } from './style';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import {actionCreators} from './store';
+
+import { Link } from 'react-router-dom';
 
 const {
   getList,
@@ -27,14 +29,18 @@ const {
   getHotListOutAction,
 } = actionCreators;
 
-class Header extends Component {
+
+
+class Header extends PureComponent {
   render() {
     const {focused, handleInputFocus, handleInputBlur, list} = this.props;
 
     return (
       <div>
         <HeaderWrapper>
-          <Logo href="/" />
+          <Link to='/'>
+            <Logo/>
+          </Link>
           <Nav>
             <NavItem className="fl active">
               <span className="iconfont iconcompass_0"></span>

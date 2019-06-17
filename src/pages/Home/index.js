@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import {
   HomeWrapper,
   HomeLeft,
@@ -16,7 +16,7 @@ import {
   getChangeShowScrollAction
 } from './store/actionCreators';
 
-class Home extends Component {
+class Home extends PureComponent {
 
   componentDidMount = () => {
     this.bindEvent();
